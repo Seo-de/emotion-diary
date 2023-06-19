@@ -8,8 +8,10 @@ const DiaryItem = ({ id, emotion, content, date }) => {
   const env = process.env;
   env.PUBLIC_URL = env.PUBLIC_URL || "";
 
+  // 2023.06.19 이런식으로 나오게 해주는 부분.
   const strDate = new Date(parseInt(date)).toLocaleDateString();
 
+  // 페이지 이동할 수 있게 주소 바꿔주는거
   const goDetail = () => {
     navigate(`/diary/${id}`);
   };
