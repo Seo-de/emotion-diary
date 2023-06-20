@@ -31,8 +31,12 @@ const DiaryItem = ({ id, emotion, content, date }) => {
       >
         <img src={process.env.PUBLIC_URL + `assets/emotion${emotion}.png`} />
       </div>
+      {/* 상세보기랑 수정하기 둘 다 onClick 함수로 이동을 시켜줘야 함.
+          그래서 goDetail, goEdit 함수를 만들어서
+          navigate로 페이지 이동 시켜주도록 함. */}
       <div onClick={goDetail} className="info_wrapper">
         <div className="diary_date">{strDate}</div>
+        {/* content가 너무 길 경우 자르도록 함. */}
         <div className="diary_content_preview">{content.slice(0, 25)}</div>
       </div>
       <div className="btn_wrapper">

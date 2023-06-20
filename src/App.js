@@ -10,6 +10,8 @@ import Diary from "./pages/Diary";
 
 const reducer = (state, action) => {
   let newState = [];
+  // 그래서 INIT, CREATE, REMOVE, EDIT을 호출이 되면
+  // 해당 코드가 실행이 되는거고...
   switch (action.type) {
     case "INIT": {
       return action.data;
@@ -36,10 +38,15 @@ const reducer = (state, action) => {
   return newState;
 };
 
+// Context API
+// 상위 컴포넌트에서 하위 컴포넌트로 데이터 전달 시 사용
+// 매 컴포넌트마다 전달하는게 비효율적이라 사용해줌.
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
 function App() {
+  // reducer를 사용해주기 위함.
+  // data의 초기값은 []이고, dispatch를 호출하면 reducer가 실행이 된다.
   const [data, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
@@ -57,8 +64,25 @@ function App() {
   }, []);
 
   const dataId = useRef(0);
+
+  // INIT, CREATE, REMOVE, EDIT의 기존의 코드들은
+  // setData에 값을 저장해줬었음.
+  // 이러한 코드가 계속 반복이 되니 reducer를 사용해서
+  // 컴포넌트를 분리시켜주었음.
+
   // CREATE
   const onCreate = (date, content, emotion) => {
+    //이게 기존 코드인데...
+    // const created_date = new Date().getTime();
+    // const newItem = {
+    //   author,
+    //   content,
+    //   emotion,
+    //   created_date,
+    //   id: dataId.current,
+    // };
+    // setData((data) => [newItem, ...data]);
+
     dispatch({
       type: "CREATE",
       data: {
