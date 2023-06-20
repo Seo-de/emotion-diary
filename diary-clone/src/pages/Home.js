@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { DiaryStateContext } from "../../../src/App";
+import { DiaryStateContext } from "../App";
 
-import MyHeader from "../../../src/components/MyHeader";
-import MyButton from "../../../src/components/MyButton";
-import DiaryList from "../../../src/components/DiaryList";
+import MyHeader from "../components/MyHeader";
+import MyButton from "../components/MyButton";
+import DiaryList from "../components/DiaryList";
 
 const Home = () => {
   const diaryList = useContext(DiaryStateContext);
