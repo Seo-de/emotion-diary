@@ -1,11 +1,11 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { getStringDate } from "../util/date";
-import { DiaryDispatchContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import EmotionItem from "../components/EmotionItem";
 import MyHeader from "../components/MyHeader";
 import MyButton from "../components/MyButton";
+import { DiaryDispatchContext } from "../App";
+import { getStringDate } from "../util/date";
 import { emotionList } from "../util/emotion";
-import EmotionItem from "../components/EmotionItem";
 
 const DiaryEditor = ({ isEdit, originData }) => {
   const contentRef = useRef();
@@ -13,7 +13,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date()));
 
-  const { onCreate, onRemove, onEdit } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
   const handleClickEmote = useCallback((emotion) => {
     setEmotion(emotion);
   }, []);
@@ -32,7 +32,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
       if (!isEdit) {
         onCreate(date, content, emotion);
       } else {
-        onEdit(content, emotion, date, originData.id);
+        onEdit(originData.id, date, content, emotion);
       }
     }
     navigate("/", { replace: true });
@@ -42,7 +42,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       onRemove(originData.id);
       // 뒤로가기로 못오게 만든거래...
-      navigate("/edit", { replace: true });
+      navigate("/", { replace: true });
     }
   };
 

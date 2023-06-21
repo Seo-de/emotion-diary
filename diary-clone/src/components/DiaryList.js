@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyButton from "../components/MyButton";
 import DiaryItem from "../components/DiaryItem";
@@ -14,7 +14,8 @@ const filterOptionList = [
   { value: "bad", name: "나쁜 감정만" },
 ];
 
-const ControlMenu = ({ value, onChange, optionList }) => {
+// 강화된 컴포넌트를 반환시켜줌.
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
   return (
     <select
       className="ControlMenu"
@@ -28,7 +29,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
       ))}
     </select>
   );
-};
+});
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();
@@ -37,13 +38,6 @@ const DiaryList = ({ diaryList }) => {
   const [filter, setFilter] = useState("all");
 
   const getProcessedDiaryList = () => {
-    // 1. 깊은 복사를 하기 위해 copy하기
-    const copyList = JSON.parse(JSON.stringify(diaryList));
-
-    // 2-1. filter에 따른 정렬을 하겠다
-    const filteredList =
-      filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it));
-
     // 2-2. filteredList 정렬에 따른 리스트 보여주기
     const filterCallBack = (item) => {
       if (filter === "good") {
@@ -52,19 +46,23 @@ const DiaryList = ({ diaryList }) => {
         return parseInt(item.emotion) > 3;
       }
     };
-
-    // 3-1. 정렬하기
-    const sortedList = filteredList.sort(compare);
-
     // 3-2. 정렬하기에 따른 내용 보여주기
     const compare = (a, b) => {
-      if (sortType === "lateset") {
+      if (sortType === "latest") {
         return parseInt(b.date) - parseInt(a.date);
       } else {
         return parseInt(a.date) - parseInt(b.date);
       }
     };
+    // 1. 깊은 복사를 하기 위해 copy하기
+    const copyList = JSON.parse(JSON.stringify(diaryList));
 
+    // 2-1. filter에 따른 정렬을 하겠다
+    const filteredList =
+      filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it));
+
+    // 3-1. 정렬하기
+    const sortedList = filteredList.sort(compare);
     return sortedList;
   };
   return (

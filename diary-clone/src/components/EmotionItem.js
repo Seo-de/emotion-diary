@@ -13,7 +13,7 @@ const EmotionItem = ({
       className={[
         "EmotionItem",
         isSelected ? `EmotionItem_on_${emotion_id}` : `EmotionItem_off`,
-      ].join("")}
+      ].join(" ")}
     >
       <img src={emotion_img} />
       <span>{emotion_descript}</span>

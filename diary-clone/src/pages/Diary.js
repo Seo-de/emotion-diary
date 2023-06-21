@@ -14,7 +14,7 @@ const Diary = () => {
 
   useEffect(() => {
     const titleElement = document.getElementsByTagName("title")[0];
-    titleElement.innerHTML = `감정 일기장 = ${id}번 일기`;
+    titleElement.innerHTML = `감정 일기장 - ${id}번 일기`;
   }, []);
 
   useEffect(() => {
@@ -40,11 +40,11 @@ const Diary = () => {
     );
 
     return (
-      <div className="DiaryPate">
+      <div className="DiaryPage">
         <MyHeader
           headText={`${getStringDate(new Date(data.date))} 기록`}
           leftChild={
-            <MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />
+            <MyButton text={"< 뒤로가기"} onClick={() => navigate(-1)} />
           }
           rightChild={
             <MyButton

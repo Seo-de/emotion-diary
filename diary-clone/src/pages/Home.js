@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     const titleElement = document.getElementsByTagName("title")[0];
-    titleElement.innerHTML = "감정 일기장";
+    titleElement.innerHTML = `감정 일기장`;
   });
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Home = () => {
       ).getTime();
 
       setData(
-        diaryList.filter((it) => firstDay <= it.Date && it.date <= lastDay)
+        diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
       );
     } else {
       setData([]);
